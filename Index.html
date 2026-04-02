@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QA Tracker Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0e1a;color:#e2e8f0;font-family:Arial,sans-serif;min-height:100vh;direction:rtl}
+header{background:#0d1425;border-bottom:1px solid #1e2d4a;padding:12px 16px}
+.htop{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding-bottom:10px;border-bottom:1px solid #1a2540;margin-bottom:10px}
+.logo-area{display:flex;align-items:center;gap:10px}
+.logo-img{height:38px;background:#fff;border-radius:7px;padding:3px 7px}
+.co-ar{font-size:.9rem;font-weight:700;color:#e2e8f0;display:block}
+.co-en{font-size:.65rem;color:#60a5fa;display:block;letter-spacing:.5px}
+.badges{display:flex;gap:7px;flex-wrap:wrap}
+.badge{padding:4px 11px;border-radius:20px;font-size:.7rem;font-weight:700;border:1px solid}
+.bb{background:rgba(59,130,246,.12);border-color:rgba(59,130,246,.4);color:#60a5fa}
+.bg{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.4);color:#34d399}
+h1{font-size:1.2rem;font-weight:900;color:#60a5fa}
+.sub{font-size:.72rem;color:#64748b;margin-top:2px}
+main{padding:16px}
+.sec{font-size:.62rem;text-transform:uppercase;letter-spacing:2px;color:#64748b;margin:16px 0 10px;display:flex;align-items:center;gap:8px}
+.sec::after{content:'';flex:1;height:1px;background:#1e2d4a}
+.kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+@media(min-width:600px){.kpi-grid{grid-template-columns:repeat(5,1fr)}}
+.kpi{background:#161f35;border:1px solid #1e2d4a;border-radius:11px;padding:14px 12px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;right:0;width:50px;height:50px;border-radius:0 11px 0 50px;opacity:.13}
+.kbl::before{background:#3b82f6}.kgr::before{background:#10b981}
+.kam::before{background:#f59e0b}.krd::before{background:#ef4444}
+.kpu::before{background:#8b5cf6}
+.kico{font-size:1.1rem;margin-bottom:6px;display:block}
+.klbl{font-size:.6rem;color:#64748b;text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.kval{font-size:1.6rem;font-weight:900;line-height:1;margin-bottom:3px}
+.kbl .kval{color:#60a5fa}.kgr .kval{color:#34d399}
+.kam .kval{color:#fbbf24}.krd .kval{color:#f87171}.kpu .kval{color:#a78bfa}
+.ksub{font-size:.62rem;color:#64748b}
+.g1{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:12px}
+@media(min-width:700px){.g1{grid-template-columns:1fr 1fr 1fr}}
+.g2{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:12px}
+@media(min-width:700px){.g2{grid-template-columns:1.3fr 1fr}}
+.g3{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:700px){.g3{grid-template-columns:1fr 1fr}}
+.card{background:#161f35;border:1px solid #1e2d4a;border-radius:11px;padding:16px}
+.ct{font-size:.83rem;font-weight:700;margin-bottom:2px}
+.cs{font-size:.65rem;color:#64748b;margin-bottom:12px}
+.barchart{display:flex;flex-direction:column;gap:6px}
+.brow{display:flex;align-items:center;gap:7px}
+.blbl{font-size:.65rem;color:#94a3b8;width:72px;text-align:right;flex-shrink:0}
+.btrack{flex:1;height:18px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden}
+.bfill{height:100%;border-radius:3px;display:flex;align-items:center;justify-content:flex-end;padding-right:5px}
+.bnum{font-size:.63rem;font-weight:700;color:#fff}
+.donut-wrap{display:flex;align-items:center;gap:16px;margin-top:6px}
+.dlegend{display:flex;flex-direction:column;gap:8px}
+.ditem{display:flex;align-items:center;gap:7px;font-size:.75rem}
+.ddot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.dval{font-size:1.1rem;font-weight:900}
+.pills{display:flex;gap:8px;margin-top:8px}
+.pill{padding:8px 6px;border-radius:9px;font-size:.72rem;font-weight:700;border:1px solid;display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;text-align:center}
+.pn{font-size:1.15rem;font-weight:900}
+.em{background:rgba(59,130,246,.1);border-color:rgba(59,130,246,.3);color:#60a5fa}
+.wa{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:#34d399}
+.ph{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.3);color:#fbbf24}
+.rm-table{width:100%;border-collapse:collapse;font-size:.73rem}
+.rm-table th{text-align:right;padding:6px 7px;color:#64748b;font-size:.6rem;text-transform:uppercase;border-bottom:1px solid #1e2d4a}
+.rm-table td{padding:7px 7px;border-bottom:1px solid rgba(30,45,74,.4)}
+.rm-table tr:last-child td{border-bottom:none}
+.pbar{height:4px;background:#1e2d4a;border-radius:2px;overflow:hidden;width:55px}
+.pfill{height:100%;border-radius:2px;background:linear-gradient(90deg,#3b82f6,#10b981)}
+.monthbars{display:flex;align-items:flex-end;gap:10px;height:110px;margin-top:10px;padding:0 4px}
+.mcol{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+.mbar{width:100%;border-radius:4px 4px 0 0;min-height:4px}
+.mlbl{font-size:.6rem;color:#64748b;text-align:center}
+.mval{font-size:.68rem;font-weight:700}
+.lagbars{display:flex;align-items:flex-end;gap:7px;height:100px;margin-top:8px}
+.lcol{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
+.lbar{width:100%;border-radius:3px 3px 0 0;min-height:3px}
+.llbl{font-size:.6rem;color:#64748b}
+.lval{font-size:.63rem;font-weight:700}
+.satbars{display:flex;align-items:flex-end;gap:8px;height:80px;margin-top:10px}
+.scol{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
+.sbar{width:100%;border-radius:3px 3px 0 0}
+.slbl{font-size:.68rem;color:#64748b}
+.sval{font-size:.68rem;font-weight:700}
+footer{text-align:center;padding:14px;color:#64748b;font-size:.65rem;border-top:1px solid #1e2d4a;margin-top:8px}
+</style>
+</head>
+<body>
+<header>
+  <div class="htop">
+    <div class="logo-area">
+      <img class="logo-img" src="data:image/png;base64,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" alt="logo"/>
+      <div>
+        <span class="co-ar">إيليت لوساطة التأمين</span>
+        <span class="co-en">Elite Insurance Brokerage</span>
+      </div>
+    </div>
+    <div class="badges">
+      <span class="badge bb">757 طلب</span>
+      <span class="badge bg">✓ 31 مارس 2026</span>
+    </div>
+  </div>
+  <h1>📋 لوحة متابعة الجودة — QA Tracker</h1>
+  <p class="sub">تقرير شامل لأداء فريق علاقات العملاء | فبراير – مارس 2026</p>
+</header>
+
+<main>
+<div class="sec">المؤشرات الرئيسية</div>
+<div class="kpi-grid">
+  <div class="kpi kbl"><span class="kico">📦</span><div class="klbl">إجمالي الطلبات</div><div class="kval">757</div><div class="ksub">فبراير – مارس 2026</div></div>
+  <div class="kpi kgr"><span class="kico">✅</span><div class="klbl">Pass</div><div class="kval">690</div><div class="ksub">91.2% من الإجمالي</div></div>
+  <div class="kpi kam"><span class="kico">📝</span><div class="klbl">Pass with Notes</div><div class="kval">67</div><div class="ksub">8.8% من الإجمالي</div></div>
+  <div class="kpi kpu"><span class="kico">⭐</span><div class="klbl">متوسط الرضا</div><div class="kval">3.93</div><div class="ksub">من 5 نقاط</div></div>
+  <div class="kpi krd"><span class="kico">⏱</span><div class="klbl">متوسط QA Lag</div><div class="kval">1.54</div><div class="ksub">يوم عمل</div></div>
+</div>
+
+<div class="sec">تحليل الطلبات</div>
+<div class="g1">
+  <div class="card">
+    <div class="ct">حالة مراجعة الجودة</div><div class="cs">توزيع النتائج</div>
+    <div class="donut-wrap">
+      <svg width="100" height="100" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="36" fill="none" stroke="#1e2d4a" stroke-width="16"/>
+        <circle cx="50" cy="50" r="36" fill="none" stroke="#10b981" stroke-width="16" stroke-dasharray="205 21" stroke-dashoffset="57" stroke-linecap="round"/>
+        <circle cx="50" cy="50" r="36" fill="none" stroke="#f59e0b" stroke-width="16" stroke-dasharray="21 205" stroke-dashoffset="-148" stroke-linecap="round"/>
+        <text x="50" y="46" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="900">91%</text>
+        <text x="50" y="57" text-anchor="middle" fill="#64748b" font-size="7">Pass</text>
+      </svg>
+      <div class="dlegend">
+        <div class="ditem"><span class="ddot" style="background:#10b981"></span><div><div style="color:#64748b;font-size:.62rem">Pass</div><div class="dval" style="color:#34d399">690</div></div></div>
+        <div class="ditem"><span class="ddot" style="background:#f59e0b"></span><div><div style="color:#64748b;font-size:.62rem">Pass with Notes</div><div class="dval" style="color:#fbbf24">67</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct">أنواع الطلبات</div><div class="cs">أعلى 8 أنواع</div>
+    <div class="barchart">
+      <div class="brow"><span class="blbl">إضافة</span><div class="btrack"><div class="bfill" style="width:100%;background:rgba(59,130,246,.8)"><span class="bnum">381</span></div></div></div>
+      <div class="brow"><span class="blbl">حذف</span><div class="btrack"><div class="bfill" style="width:49.6%;background:rgba(16,185,129,.8)"><span class="bnum">189</span></div></div></div>
+      <div class="brow"><span class="blbl">تصحيح</span><div class="btrack"><div class="bfill" style="width:13.4%;background:rgba(245,158,11,.8)"><span class="bnum">51</span></div></div></div>
+      <div class="brow"><span class="blbl">أخرى</span><div class="btrack"><div class="bfill" style="width:8.1%;background:rgba(139,92,246,.8)"><span class="bnum">31</span></div></div></div>
+      <div class="brow"><span class="blbl">قائمة نشطة</span><div class="btrack"><div class="bfill" style="width:6.3%;background:rgba(6,182,212,.8)"><span class="bnum">24</span></div></div></div>
+      <div class="brow"><span class="blbl">فاتورة</span><div class="btrack"><div class="bfill" style="width:6%;background:rgba(236,72,153,.8)"><span class="bnum">23</span></div></div></div>
+      <div class="brow"><span class="blbl">CCHI</span><div class="btrack"><div class="bfill" style="width:2.6%;background:rgba(99,102,241,.8)"><span class="bnum">10</span></div></div></div>
+      <div class="brow"><span class="blbl">SOA</span><div class="btrack"><div class="bfill" style="width:2.4%;background:rgba(239,68,68,.8)"><span class="bnum">9</span></div></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct">شركات التأمين</div><div class="cs">حسب عدد الطلبات</div>
+    <div class="barchart">
+      <div class="brow"><span class="blbl">Bupa</span><div class="btrack"><div class="bfill" style="width:100%;background:rgba(99,102,241,.85)"><span class="bnum">223</span></div></div></div>
+      <div class="brow"><span class="blbl">Tawuniya</span><div class="btrack"><div class="bfill" style="width:66%;background:rgba(99,102,241,.75)"><span class="bnum">148</span></div></div></div>
+      <div class="brow"><span class="blbl">Alsagr</span><div class="btrack"><div class="bfill" style="width:63%;background:rgba(99,102,241,.7)"><span class="bnum">140</span></div></div></div>
+      <div class="brow"><span class="blbl">Alrajhi</span><div class="btrack"><div class="bfill" style="width:47%;background:rgba(99,102,241,.65)"><span class="bnum">105</span></div></div></div>
+      <div class="brow"><span class="blbl">Arab Coop</span><div class="btrack"><div class="bfill" style="width:28%;background:rgba(99,102,241,.6)"><span class="bnum">63</span></div></div></div>
+      <div class="brow"><span class="blbl">Medgulf</span><div class="btrack"><div class="bfill" style="width:11%;background:rgba(99,102,241,.55)"><span class="bnum">24</span></div></div></div>
+      <div class="brow"><span class="blbl">Malath</span><div class="btrack"><div class="bfill" style="width:6%;background:rgba(99,102,241,.5)"><span class="bnum">14</span></div></div></div>
+      <div class="brow"><span class="blbl">GGI</span><div class="btrack"><div class="bfill" style="width:6%;background:rgba(99,102,241,.45)"><span class="bnum">13</span></div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">أداء الفريق</div>
+<div class="g2">
+  <div class="card">
+    <div class="ct">أداء مديري العلاقات (RM)</div><div class="cs">الطلبات ومتوسط الرضا</div>
+    <table class="rm-table">
+      <thead><tr><th>مدير العلاقات</th><th>الطلبات</th><th>التوزيع</th><th>الرضا</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:700">Alzubair Aljumah</td><td style="color:#60a5fa;font-weight:700">143</td><td><div class="pbar"><div class="pfill" style="width:100%"></div></div></td><td style="color:#10b981;font-weight:700">4.01</td></tr>
+        <tr><td style="font-weight:700">Ghannam Al Kahtani</td><td style="color:#60a5fa;font-weight:700">127</td><td><div class="pbar"><div class="pfill" style="width:89%"></div></div></td><td style="color:#f59e0b;font-weight:700">3.98</td></tr>
+        <tr><td style="font-weight:700">Norah Sahab</td><td style="color:#60a5fa;font-weight:700">88</td><td><div class="pbar"><div class="pfill" style="width:62%"></div></div></td><td style="color:#64748b;font-weight:700">3.84</td></tr>
+        <tr><td style="font-weight:700">Yasser AlHassawi</td><td style="color:#60a5fa;font-weight:700">88</td><td><div class="pbar"><div class="pfill" style="width:62%"></div></div></td><td style="color:#64748b;font-weight:700">3.82</td></tr>
+        <tr><td style="font-weight:700">Shuroug AlMirdasi</td><td style="color:#60a5fa;font-weight:700">82</td><td><div class="pbar"><div class="pfill" style="width:57%"></div></div></td><td style="color:#f59e0b;font-weight:700">3.94</td></tr>
+        <tr><td style="font-weight:700">Maha Alshammari</td><td style="color:#60a5fa;font-weight:700">74</td><td><div class="pbar"><div class="pfill" style="width:52%"></div></div></td><td style="color:#f59e0b;font-weight:700">3.92</td></tr>
+        <tr><td style="font-weight:700">Rawan Alshahrani</td><td style="color:#60a5fa;font-weight:700">71</td><td><div class="pbar"><div class="pfill" style="width:50%"></div></div></td><td style="color:#f59e0b;font-weight:700">3.97</td></tr>
+        <tr><td style="font-weight:700">Ghaida Bin Drees</td><td style="color:#60a5fa;font-weight:700">35</td><td><div class="pbar"><div class="pfill" style="width:24%"></div></div></td><td style="color:#10b981;font-weight:700">4.03</td></tr>
+        <tr><td style="font-weight:700">Samahir Albishi</td><td style="color:#60a5fa;font-weight:700">13</td><td><div class="pbar"><div class="pfill" style="width:9%"></div></div></td><td style="color:#64748b;font-weight:700">3.85</td></tr>
+        <tr><td style="font-weight:700">Atheer AlHudhaif</td><td style="color:#60a5fa;font-weight:700">12</td><td><div class="pbar"><div class="pfill" style="width:8%"></div></div></td><td style="color:#f59e0b;font-weight:700">3.92</td></tr>
+        <tr><td style="font-weight:700">Bshayer Alshihry</td><td style="color:#60a5fa;font-weight:700">11</td><td><div class="pbar"><div class="pfill" style="width:8%"></div></div></td><td style="color:#10b981;font-weight:700">4.00</td></tr>
+        <tr><td style="font-weight:700">Saleh Al Ghamdi</td><td style="color:#60a5fa;font-weight:700">7</td><td><div class="pbar"><div class="pfill" style="width:5%"></div></div></td><td style="color:#10b981;font-weight:700">4.00</td></tr>
+        <tr><td style="font-weight:700">Abdulrahman B. Mussallam</td><td style="color:#60a5fa;font-weight:700">6</td><td><div class="pbar"><div class="pfill" style="width:4%"></div></div></td><td style="color:#10b981;font-weight:700">4.00</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div class="card">
+      <div class="ct">قنوات التواصل</div><div class="cs">توزيع حسب القناة</div>
+      <div class="pills">
+        <div class="pill em"><div class="pn">750</div><div>📧 إيميل</div></div>
+        <div class="pill wa"><div class="pn">6</div><div>💬 واتساب</div></div>
+        <div class="pill ph"><div class="pn">1</div><div>📞 هاتف</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ct">رضا العملاء</div><div class="cs">التوزيع من 1 إلى 5</div>
+      <div class="satbars">
+        <div class="scol"><div class="sval" style="color:#f87171">4</div><div class="sbar" style="flex:1;height:5px;background:rgba(239,68,68,.7)"></div><div class="slbl">★2</div></div>
+        <div class="scol"><div class="sval" style="color:#fbbf24">47</div><div class="sbar" style="flex:1;height:34px;background:rgba(245,158,11,.7)"></div><div class="slbl">★3</div></div>
+        <div class="scol"><div class="sval" style="color:#34d399">697</div><div class="sbar" style="flex:1;height:70px;background:rgba(16,185,129,.8)"></div><div class="slbl">★4</div></div>
+        <div class="scol"><div class="sval" style="color:#60a5fa">9</div><div class="sbar" style="flex:1;height:6px;background:rgba(59,130,246,.7)"></div><div class="slbl">★5</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">الاتجاهات الزمنية</div>
+<div class="g3">
+  <div class="card">
+    <div class="ct">الاتجاه الشهري</div><div class="cs">فبراير – مارس 2026</div>
+    <div style="font-size:.68rem;margin-bottom:6px;display:flex;gap:12px">
+      <span style="color:#3b82f6">● الطلبات</span>
+      <span style="color:#f59e0b">● Pass with Notes</span>
+    </div>
+    <div class="monthbars">
+      <div class="mcol"><div class="mval" style="color:#3b82f6">448</div><div class="mbar" style="height:90px;background:rgba(59,130,246,.7)"></div><div class="mlbl">فبراير</div></div>
+      <div class="mcol"><div class="mval" style="color:#3b82f6">305</div><div class="mbar" style="height:61px;background:rgba(59,130,246,.7)"></div><div class="mlbl">مارس</div></div>
+      <div class="mcol"><div class="mval" style="color:#f59e0b">38</div><div class="mbar" style="height:9px;background:rgba(245,158,11,.7)"></div><div class="mlbl">Notes فبراير</div></div>
+      <div class="mcol"><div class="mval" style="color:#f59e0b">29</div><div class="mbar" style="height:7px;background:rgba(245,158,11,.7)"></div><div class="mlbl">Notes مارس</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct">توزيع QA Lag</div><div class="cs">فترة المراجعة (أيام)</div>
+    <div class="lagbars">
+      <div class="lcol"><div class="lval">3</div><div class="lbar" style="height:3px;background:rgba(6,182,212,.8)"></div><div class="llbl">0</div></div>
+      <div class="lcol"><div class="lval">584</div><div class="lbar" style="height:90px;background:rgba(16,185,129,.85)"></div><div class="llbl">1</div></div>
+      <div class="lcol"><div class="lval">13</div><div class="lbar" style="height:7px;background:rgba(59,130,246,.8)"></div><div class="llbl">2</div></div>
+      <div class="lcol"><div class="lval">115</div><div class="lbar" style="height:18px;background:rgba(245,158,11,.8)"></div><div class="llbl">3</div></div>
+      <div class="lcol"><div class="lval">28</div><div class="lbar" style="height:9px;background:rgba(239,68,68,.75)"></div><div class="llbl">4</div></div>
+      <div class="lcol"><div class="lval">1</div><div class="lbar" style="height:3px;background:rgba(239,68,68,.6)"></div><div class="llbl">5</div></div>
+      <div class="lcol"><div class="lval">12</div><div class="lbar" style="height:6px;background:rgba(239,68,68,.9)"></div><div class="llbl">7</div></div>
+    </div>
+  </div>
+</div>
+</main>
+<footer>QA Tracker Dashboard • إيليت لوساطة التأمين — Elite Insurance Brokerage • 31 مارس 2026</footer>
+</body>
+</html>
